@@ -1,22 +1,14 @@
 const express = require("express");
-
+const reload = require("reload");
 const app = express();
 
-const PhepTinh = require("./PhepTinh");
+app.set('view engine' , 'ejs');
+
+app.use(express.static('public'));
 
 app.get('/' , (req , res) => {
-    res.send('<h1>Hello Phi Tup</h1>')
-})
-
-app.get('/chao/:name' , (req , res) => {
-    res.send('chào ' + req.params.name);
-})
-
-app.get('/toan/:pheptinh/:SoA/:SoB' , (req , res) => {
-    const { pheptinh , SoA , SoB } = req.params;
-    const pt = new PhepTinh(pheptinh , +SoA , +SoB);
-    res.send(pt.getResultString());
-})
+    res.render('main');
+});
 
 app.listen(3000 , () => console.log("Start Server"));
-
+reload(app);
